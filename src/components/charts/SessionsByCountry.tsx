@@ -42,7 +42,7 @@ const data: CountryData[] = [
 export function SessionsByCountry() {
   return (
     <div className="h-80 w-full">
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" height="100%" minWidth={300} minHeight={200}>  {/* <-- Added minWidth and minHeight to fix dimension errors */}
         <BarChart
           data={data}
           layout="vertical"
@@ -73,14 +73,18 @@ export function SessionsByCountry() {
               y,
               payload,
             }: {
-              x: number;
-              y: number;
+              x: string | number;  // Allows string or number
+              y: string | number;  // Allows string or number
               payload: { value: string };
             }) => {
               const countryData = data.find((d) => d.country === payload.value);
 
+              // Handle x and y as potentially strings for SVG safety
+              const numericX = typeof x === 'number' ? x : parseFloat(x as string) || 0;
+              const numericY = typeof y === 'number' ? y : parseFloat(y as string) || 0;
+
               return (
-                <g transform={`translate(${x},${y})`}>
+                <g transform={`translate(${numericX},${numericY})`}>
                   {/* Flag image */}
                   <image
                     href={countryData?.flag}
@@ -106,7 +110,6 @@ export function SessionsByCountry() {
               );
             }}
           />
-
           <Tooltip
             cursor={{ fill: "rgba(150, 96, 251, 0.08)" }}
             contentStyle={{
