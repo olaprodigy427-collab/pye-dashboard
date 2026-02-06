@@ -30,7 +30,7 @@ const stats = [
 
 export function StatsCards() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {stats.map((stat, index) => {
         const isFirst = index === 0;
 
@@ -62,7 +62,7 @@ export function StatsCards() {
               className="absolute top-4 right-4 text-gray-400 hover:text-white opacity-70 hover:opacity-100 transition-opacity"
               aria-label="More options"
             >
-              <MoreHorizontal size={18} />
+              <MoreHorizontal size={20} />
             </button>
 
             {/* Icon circle */}
